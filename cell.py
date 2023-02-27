@@ -35,3 +35,44 @@ class Cell:
         if self.has_bottom_wall:
             line = Line(Point(x1, y2), Point(x2, y2))
             self.window.draw_line(line)
+
+    def draw_move(self, to_cell, undo=False):
+        if self.window is None:
+            return
+        x_mid = (self.x1 + self.x2) / 2
+        y_mid = (self.y1 + self.y2) / 2
+
+        to_x_mid = (to_cell.x1 + to_cell.x2) / 2
+        to_y_mid = (to_cell.y1 + to_cell.y2) / 2
+
+        fill_color = "red"
+        if undo:
+            fill_color = "gray"
+
+        # moving left
+        if self.x1 > to_cell.x1:
+            line = Line(Point(self._x1, y_mid), Point(x_mid, y_mid))
+            self.window.draw_line(line, fill_color)
+            line = Line(Point(to_x_mid, to_y_mid), Point(to_cell.x2, to_y_mid))
+            self.window.draw_line(line, fill_color)
+
+        # moving right
+        elif self.x1 < to_cell.x1:
+            line = Line(Point(x_mid, y_mid), Point(self.x2, y_mid))
+            self.window.draw_line(line, fill_color)
+            line = Line(Point(to_cell.x1, to_y_mid), Point(to_x_mid, to_y_mid))
+            self.window.draw_line(line, fill_color)
+
+        # moving up
+        elif self.y1 > to_cell.y1:
+            line = Line(Point(x_mid, y_mid), Point(x_mid, self.y1))
+            self.window.draw_line(line, fill_color)
+            line = Line(Point(to_x_mid, to_cell.y2), Point(to_x_mid, to_y_mid))
+            self.window.draw_line(line, fill_color)
+
+        # moving down
+        elif self._y1 < to_cell._y1:
+            line = Line(Point(x_mid, y_mid), Point(x_mid, self.y2))
+            self.window.draw_line(line, fill_color)
+            line = Line(Point(to_x_mid, to_y_mid), Point(to_x_mid, to_cell.y1))
+            self.window.draw_line(line, fill_color)
