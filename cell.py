@@ -2,7 +2,7 @@ from graphics import Point, Line
 
 
 class Cell:
-    def __init__(self,  window, has_left_wall=True, has_right_wall=True, has_top_wall=True, has_bottom_wall=True,):
+    def __init__(self,  window):
         self.has_left_wall = True
         self.has_right_wall = True
         self.has_top_wall = True
