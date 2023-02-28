@@ -22,6 +22,7 @@ class Maze:
         self.window = window
         self.cells = []
         self.create_cells()
+        self.break_entrance_and_exit()
 
     def create_cells(self):
         self.cells = [0] * self.num_cols
