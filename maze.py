@@ -34,15 +34,13 @@ class Maze:
             for j in range(self.num_rows):
                 self.draw_cell(i, j)
 
-    def draw_cell(self, column, row):
-        top_left_x = self.x1 + (column * self.cell_size_x)
-        top_left_y = self.y1 + (row * self.cell_size_y)
+    def draw_cell(self, i, j):
+        cell_x1 = self.x1 + i * self.cell_size_x
+        cell_y1 = self.y1 + j * self.cell_size_y
+        cell_x2 = cell_x1 + self.cell_size_x
+        cell_y2 = cell_y1 + self.cell_size_y
 
-        bottom_right_x = top_left_x + self.cell_size_x
-        bottom_right_y = top_left_y + self.cell_size_y
-
-        self.cells[row][column].draw(
-            top_left_x, top_left_y, bottom_right_x, bottom_right_y)
+        self.cells[i][j].draw(cell_x1, cell_y1, cell_x2, cell_y2)
 
         self.animate()
 
@@ -52,9 +50,9 @@ class Maze:
 
     def break_entrance_and_exit(self):
         self.cells[0][0].has_top_wall = False
-        self._draw_cell(0, 0)
+        self.draw_cell(0, 0)
 
         self.cells[self.num_cols - 1][self.num_rows -
                                       1].has_bottom_wall = False
 
-        self._draw_cell(self._num_cols - 1, self._num_rows - 1)
+        self.draw_cell(self.num_cols - 1, self.num_rows - 1)
